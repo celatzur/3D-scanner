@@ -1,7 +1,7 @@
 // ************************************************************************************************************************
 // *** 3D scanner turntable
 // ***
-// *** Turntable for a 3D scanner controlled with arduino, who also shoots, via bluettoth, a phone camera to reconstruct 
+// *** Turntable for a 3D scanner controlled with arduino, who also shoots, via bluetooth, a phone camera to reconstruct 
 // *** the object with photogrametry.
 // *** 
 // *** Components:
