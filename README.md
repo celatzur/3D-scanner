@@ -4,8 +4,8 @@ Turntable for a 3D scanner controlled with arduino, who also shoots, via bluetto
 Components:
 
 - Arduino Nano
-- 4 push buttons (play, shoot, turn a step clockwise, turn a step counter-clockwise)
-- On/off button for bluetooth
+- 2 push buttons (play, shoot)
+- On/off switch for bluetooth
 - Cheap Bluetooth device
 - 28BYJ-48 Stepper Motor 
 - ULN2003 driver for the motor
