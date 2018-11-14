@@ -9,3 +9,5 @@ Components:
 - Cheap Bluetooth device
 - 28BYJ-48 Stepper Motor 
 - ULN2003 driver for the motor
+
+More details at: https://github.com/celatzur/3D-scanner/wiki
