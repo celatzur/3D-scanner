@@ -46,8 +46,6 @@
 // Initialize with pin sequence IN1-IN3-IN2-IN4 for using the AccelStepper with 28BYJ-48
 AccelStepper stepperMotor(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
 
-double stepsPerDegree = 4078.0 * 2.0 / 360.0;
-
 // Push-button definition
 const int buttonStartPin = 3;             // Start or Stop button
 const int buttonShootPin = 2;             // Shoot camera button
