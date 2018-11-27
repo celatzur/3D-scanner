@@ -81,7 +81,7 @@ int i = 0;
 void setup() {
   stepperMotor.setMaxSpeed(1000.0);
   stepperMotor.setAcceleration(100.0);
-  stepperMotor.setSpeed(900);
+  stepperMotor.setSpeed(100);
   stepperMotor.setCurrentPosition(0);
   stepperMotor.moveTo(4096);          // 4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
   //stepperMotor.moveTo(0);
