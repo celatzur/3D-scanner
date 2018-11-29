@@ -11,3 +11,5 @@ Components:
 - ULN2003 driver for the motor
 
 More details at: https://github.com/celatzur/3D-scanner/wiki
+
+To control the stepper motor uses the library of Adafruit, found at: https://github.com/adafruit/AccelStepper
