@@ -1,8 +1,8 @@
 // ************************************************************************************************************************
 // *** 3D scanner turntable
 // ***
-// *** Turntable for a 3D scanner controlled with arduino, who also shoots, via bluetooth, a phone camera to reconstruct 
-// *** the object with photogrametry.
+// *** Turntable for a 3D scanner controlled with arduino, who also shoots, via bluetooth, a phone camera to 
+// *** reconstruct the object with photogrametry.
 // *** 
 // *** Components:
 // *** 
@@ -51,8 +51,8 @@ AccelStepper stepperMotor(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
 const int buttonStartPin = 3;             // Start or Stop button
 const int buttonShootPin = 2;             // Shoot camera button
 
-volatile bool buttonStartPushed=false;    // Variable to remember when Start button has been pushed (volatile inside ISR)
-volatile bool buttonShootPushed=false;    // Variable to remember when Shoot button has been pushed (volatile inside ISR)
+volatile bool buttonStartPushed=false;    // To remember when Start button has been pushed (volatile inside ISR)
+volatile bool buttonShootPushed=false;    // To remember when Shoot button has been pushed (volatile inside ISR)
 
 const int debounceDelay = 500;            //in ms, to debounce the push buttons
 
@@ -67,11 +67,11 @@ const int buzzerPin = 9;                  // Pin to buzzer to mark the start and
 
 volatile bool tableRotating=false;        // To define if the motor is already rotating
 
-const unsigned long stepsBetweenShoots = 51200;   //From 4096 steps, Acceleration = 100, MaxSpeed = 100.0, Speed = 100:  
+const unsigned long stepsBetweenShoots = 51200;   //From 4096 steps, Accel=100, MaxSpeed=100.0, Speed=100:  
                                                   //51200  = 29 Photos
                                                   //12800  = 119 Photos
                                                   //4267   = 347 Photos
-                                                  //From 4096 steps, Acceleration = 100, MaxSpeed = 1000.0, Speed = 100:  
+                                                  //From 4096 steps, Accel=100, MaxSpeed=1000.0, Speed=100:  
                                                   //6400   = 64 Photos
                                                   //12800  = 32 Photos
                                                   //25600  = 16 Photos
@@ -87,11 +87,11 @@ int i = 0;
 // ************************************************************************************************************************
 
 void setup() {
-  stepperMotor.setMaxSpeed(100.0);      //Max. 1000
+  stepperMotor.setMaxSpeed(100.0);       //Max. 1000
   stepperMotor.setAcceleration(100.0);   //Max 100
   stepperMotor.setSpeed(100);            //Max 100
   stepperMotor.setCurrentPosition(0);
-  stepperMotor.moveTo(4096);            // 4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
+  stepperMotor.moveTo(4096);             // 4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
   //stepperMotor.moveTo(0);
   stepperMotor.run(); 
 
