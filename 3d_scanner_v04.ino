@@ -54,7 +54,7 @@ const int buttonShootPin = 2;             // Shoot camera button
 volatile bool buttonStartPushed=false;    // Variable to remember when Start button has been pushed (volatile inside ISR)
 volatile bool buttonShootPushed=false;    // Variable to remember when Shoot button has been pushed (volatile inside ISR)
 
-const int debounceDelay = 100;            //in ms, for the push buttons
+const int debounceDelay = 500;            //in ms, to debounce the push buttons
 
 // LED definition to indicate the running state
 const int ledStartPin = 8;                // Number of the LED pin
@@ -67,11 +67,16 @@ const int buzzerPin = 9;                  // Pin to buzzer to mark the start and
 
 volatile bool tableRotating=false;        // To define if the motor is already rotating
 
-const int stepsBetweenShoots = 500;
-int nStepsBwShots = 0;
+const unsigned long stepsBetweenShoots = 12800;  //From 4096 steps, Acceleration = 100, MaxSpeed = 1000.0, Speed = 100:  
+                                                  //6400   = 64 Photos
+                                                  //12800  = 32 Photos
+                                                  //25600  = 16 Photos
+                                                  //51200  = 8 Photos
+                                                  //102400 = 4 Photos
+                                                  //204800 = 2 Photos 
+
+unsigned long nStepsBwShots = 0;
 int i = 0;
-
-
 
 // ************************************************************************************************************************
 // *** Setup  
@@ -106,7 +111,11 @@ void setup() {
   Serial.begin(115200);
   
   #ifdef DEBUG
-  Serial.print("Finished setup \n");
+  Serial.print(" StepperMotor.distanceToGo()= ");     
+  Serial.print(stepperMotor.distanceToGo());  
+  Serial.print("\n StepperMotor.currentPosition()=");     
+  Serial.print(stepperMotor.currentPosition()); 
+  Serial.print("\n Finished setup \n");
   delay(1000);
   #endif
 }
@@ -116,9 +125,15 @@ void setup() {
 // ************************************************************************************************************************
 
 void loop() {
-//stepperMotor.run(); 
+stepperMotor.run(); 
 
 //#ifdef DEBUG
+
+//  Serial.print(" StepperMotor.distanceToGo()=");     
+//  Serial.print(stepperMotor.distanceToGo());  
+//  Serial.print("\n StepperMotor.currentPosition()=");     
+//  Serial.print(stepperMotor.currentPosition()); 
+
 //i++;
 //
 //if (i == 100) {
@@ -147,11 +162,11 @@ if (buttonStartPushed == true) {        // If the ISR says the button is pushed
 if (tableRotating == true) {
     nStepsBwShots++;
     
-      #ifdef DEBUG
-      Serial.print("nStepsBwShots=");     
-      Serial.print(nStepsBwShots);  
-      Serial.print("\n");  
-      #endif
+//      #ifdef DEBUG
+//      Serial.print("nStepsBwShots=");     
+//      Serial.print(nStepsBwShots);  
+//      Serial.print("\n");  
+//      #endif
 
     if (nStepsBwShots == stepsBetweenShoots ) {
       nStepsBwShots=0;
@@ -180,7 +195,7 @@ if (stepperMotor.distanceToGo() == 0) {
 void isr_startButtonPushed(){ 
   
   static unsigned long last_interrupt_time = 0;
-  uint32_t interrupt_time = millis();
+  unsigned long interrupt_time = millis();
     
   if (interrupt_time - last_interrupt_time > debounceDelay) {
     buttonStartPushed = true;
@@ -199,7 +214,7 @@ void isr_startButtonPushed(){
 void isr_shootButtonPushed(){ 
 
   static unsigned long last_interrupt_time = 0;
-  uint32_t interrupt_time = millis();
+  unsigned long interrupt_time = millis();
     
   if (interrupt_time - last_interrupt_time > debounceDelay) {
     #ifdef DEBUG
@@ -223,6 +238,7 @@ void startRotating(){
   #endif
 
   digitalWrite(ledStartPin, HIGH);
+  stepperMotor.setCurrentPosition(0);
   stepperMotor.moveTo(4096);                  //4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
   stepperMotor.run();                         //Start
 }
