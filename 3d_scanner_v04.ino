@@ -25,7 +25,6 @@
 // ************************************************************************************************************************
 // *** TTD
 // *** Detect if the bluetooth remote is ON, and don't send signals anyway. 
-// *** I must wait for about 15 seconds after power up, before sending photo-shoot signals (connecting them to ground)
 // *** Connect and activate the buzzer
 // ************************************************************************************************************************
 
@@ -79,11 +78,11 @@ int i = 0;
 // ************************************************************************************************************************
 
 void setup() {
-  stepperMotor.setMaxSpeed(1000.0);
-  stepperMotor.setAcceleration(100.0);
-  stepperMotor.setSpeed(100);
+  stepperMotor.setMaxSpeed(1000.0);      //Max. 1000
+  stepperMotor.setAcceleration(100.0);   //Max 100
+  stepperMotor.setSpeed(100);            //Max 100
   stepperMotor.setCurrentPosition(0);
-  stepperMotor.moveTo(4096);          // 4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
+  stepperMotor.moveTo(4096);            // 4096 steps for 1 rotation in 28BYJ-48 – 5V Stepper Motor
   //stepperMotor.moveTo(0);
   stepperMotor.run(); 
 
@@ -119,21 +118,20 @@ void setup() {
 void loop() {
 //stepperMotor.run(); 
 
-/*
-#ifdef DEBUG
-i++;
+//#ifdef DEBUG
+//i++;
+//
+//if (i == 100) {
+//  Serial.print("Start main loop. ");
+//  Serial.print("TableRotating = ");
+//  Serial.print(tableRotating);
+//  Serial.print("\n");
+//  delay(1000);
+//  i=0;
+//  }
+//
+//#endif
 
-if (i == 100) {
-  Serial.print("Start main loop. ");
-  Serial.print("TableRotating = ");
-  Serial.print(tableRotating);
-  Serial.print("\n");
-  delay(1000);
-  i=0;
-  }
-
-#endif
-*/
 if (buttonStartPushed == true) {        // If the ISR says the button is pushed
   buttonStartPushed = false;
   if (tableRotating == false) {         // If its not moving, starts to move
@@ -148,6 +146,13 @@ if (buttonStartPushed == true) {        // If the ISR says the button is pushed
 
 if (tableRotating == true) {
     nStepsBwShots++;
+    
+      #ifdef DEBUG
+      Serial.print("nStepsBwShots=");     
+      Serial.print(nStepsBwShots);  
+      Serial.print("\n");  
+      #endif
+
     if (nStepsBwShots == stepsBetweenShoots ) {
       nStepsBwShots=0;
       //stepperMotor.stop();                //Stop
@@ -226,10 +231,11 @@ void startRotating(){
 // *** Function to stop turning the table
 // ************************************************************************************************************************
 void stopRotating(){
-  #ifdef DEBUG
-  //Serial.print("Stop rotating table \n");
-  //delay(1000);
-  #endif
+//  #ifdef DEBUG
+//  Serial.print("Stop rotating table \n");
+//  Serial.print(".");
+//  delay(1000);
+//  #endif
 
   digitalWrite(ledStartPin, LOW);
   stepperMotor.stop();                        //Stops
@@ -239,18 +245,17 @@ void stopRotating(){
 // *** Shoots a photo
 // ************************************************************************************************************************
 void shootPhoto(){
-    #ifdef DEBUG
+//    #ifdef DEBUG
     Serial.print("Shoot photo, stepperMotor.distanceToGo()=");     
     Serial.print(stepperMotor.distanceToGo());  
     Serial.print("\n");  
-    //delay(1000);
-    digitalWrite(boardLedPin, HIGH);
-    delay(1000);
-    digitalWrite(boardLedPin, LOW);
-    #endif
+//    //delay(1000);
+//    digitalWrite(boardLedPin, HIGH);
+//    delay(1000);
+//    digitalWrite(boardLedPin, LOW);
+//    #endif
 
     digitalWrite(shootPin, LOW);
     delay(500);
     digitalWrite(shootPin, HIGH);
 }
-
