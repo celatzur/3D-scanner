@@ -131,26 +131,6 @@ void setup() {
 void loop() {
 stepperMotor.run(); 
 
-//#ifdef DEBUG
-
-//  Serial.print(" StepperMotor.distanceToGo()=");     
-//  Serial.print(stepperMotor.distanceToGo());  
-//  Serial.print("\n StepperMotor.currentPosition()=");     
-//  Serial.print(stepperMotor.currentPosition()); 
-
-//i++;
-//
-//if (i == 100) {
-//  Serial.print("Start main loop. ");
-//  Serial.print("TableRotating = ");
-//  Serial.print(tableRotating);
-//  Serial.print("\n");
-//  delay(1000);
-//  i=0;
-//  }
-//
-//#endif
-
 if (buttonStartPushed == true) {        // If the ISR says the button is pushed
   buttonStartPushed = false;
   if (tableRotating == false) {         // If its not moving, starts to move
@@ -166,12 +146,6 @@ if (buttonStartPushed == true) {        // If the ISR says the button is pushed
 if (tableRotating == true) {
     nStepsBwShots++;
     
-//      #ifdef DEBUG
-//      Serial.print("nStepsBwShots=");     
-//      Serial.print(nStepsBwShots);  
-//      Serial.print("\n");  
-//      #endif
-
     if (nStepsBwShots == stepsBetweenShoots ) {
       nStepsBwShots=0;
       //stepperMotor.stop();                //Stop
@@ -187,11 +161,9 @@ if (stepperMotor.distanceToGo() == 0) {
     //stepperMotor.moveTo(-stepperMotor.currentPosition());  //Reverse motor
   }
   else {
-    stepperMotor.run();         //Run the stepper towards the destined position
-                                //Whenever the run() is called the stepper moves only 1 step onto the direction assigned
-    //Serial.print("Running \n");
+    stepperMotor.run();//Run the stepper towards the destined position
+                       //Whenever the run() is called the stepper moves only 1 step onto the direction assigned
   }
-  
 }
 
 // ************************************************************************************************************************
@@ -206,7 +178,6 @@ void isr_startButtonPushed(){
     buttonStartPushed = true;
     #ifdef DEBUG
     Serial.print("ISR START button \n");
-//    delay(1000);
     #endif
   }
 
@@ -224,7 +195,6 @@ void isr_shootButtonPushed(){
   if (interrupt_time - last_interrupt_time > debounceDelay) {
     #ifdef DEBUG
     Serial.print("ISR Shoot button \n");
-//    delay(1000);
     #endif
 
     shootPhoto();                             //Shoot the camera, if it's connected  
