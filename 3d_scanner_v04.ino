@@ -67,7 +67,11 @@ const int buzzerPin = 9;                  // Pin to buzzer to mark the start and
 
 volatile bool tableRotating=false;        // To define if the motor is already rotating
 
-const unsigned long stepsBetweenShoots = 12800;  //From 4096 steps, Acceleration = 100, MaxSpeed = 1000.0, Speed = 100:  
+const unsigned long stepsBetweenShoots = 51200;   //From 4096 steps, Acceleration = 100, MaxSpeed = 100.0, Speed = 100:  
+                                                  //51200  = 29 Photos
+                                                  //12800  = 119 Photos
+                                                  //4267   = 347 Photos
+                                                  //From 4096 steps, Acceleration = 100, MaxSpeed = 1000.0, Speed = 100:  
                                                   //6400   = 64 Photos
                                                   //12800  = 32 Photos
                                                   //25600  = 16 Photos
@@ -83,7 +87,7 @@ int i = 0;
 // ************************************************************************************************************************
 
 void setup() {
-  stepperMotor.setMaxSpeed(1000.0);      //Max. 1000
+  stepperMotor.setMaxSpeed(100.0);      //Max. 1000
   stepperMotor.setAcceleration(100.0);   //Max 100
   stepperMotor.setSpeed(100);            //Max 100
   stepperMotor.setCurrentPosition(0);
@@ -179,6 +183,7 @@ if (tableRotating == true) {
  //When the motor reaches target position, STOPs and beeps
 if (stepperMotor.distanceToGo() == 0) {
     stopRotating();
+    tableRotating=false;
     //stepperMotor.moveTo(-stepperMotor.currentPosition());  //Reverse motor
   }
   else {
@@ -234,7 +239,6 @@ void isr_shootButtonPushed(){
 void startRotating(){
   #ifdef DEBUG
   Serial.print("\n Start rotating table \n");
-//  delay(1000);
   #endif
 
   digitalWrite(ledStartPin, HIGH);
@@ -247,12 +251,6 @@ void startRotating(){
 // *** Function to stop turning the table
 // ************************************************************************************************************************
 void stopRotating(){
-//  #ifdef DEBUG
-//  Serial.print("Stop rotating table \n");
-//  Serial.print(".");
-//  delay(1000);
-//  #endif
-
   digitalWrite(ledStartPin, LOW);
   stepperMotor.stop();                        //Stops
 }
@@ -265,10 +263,6 @@ void shootPhoto(){
     Serial.print("Shoot photo, stepperMotor.distanceToGo()=");     
     Serial.print(stepperMotor.distanceToGo());  
     Serial.print("\n");  
-//    //delay(1000);
-//    digitalWrite(boardLedPin, HIGH);
-//    delay(1000);
-//    digitalWrite(boardLedPin, LOW);
 //    #endif
 
     digitalWrite(shootPin, LOW);
