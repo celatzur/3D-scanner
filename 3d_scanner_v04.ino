@@ -26,6 +26,7 @@
 // *** TTD
 // *** Detect if the bluetooth remote is ON, and don't send signals anyway. 
 // *** Connect and activate the buzzer
+// *** Enable a physical channel to reprogram the arduino without opening the scanner
 // ************************************************************************************************************************
 
 // *** Library to control the 28BYJ-48 Stepper Motor, better than the default <Stepper.h>
