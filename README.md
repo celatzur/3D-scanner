@@ -1,7 +1,7 @@
 # 3D-scanner
 Turntable for a 3D scanner controlled with arduino, which also shoots, via bluettoth, a phone camera to reconstruct the object with photogrametry
 
-<img src="https://github.com/celatzur/3D-scanner/blob/master/images/3DScanner_v01.jpg" width="448" height="366" />
+<img src="https://github.com/celatzur/3D-scanner/blob/master/images/3DScanner_v05.jpg" width="312" height="251" />
 
 Components:
 
