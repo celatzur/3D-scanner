@@ -3,6 +3,8 @@ Turntable for a 3D scanner controlled with arduino, which also shoots, via bluet
 
 <img src="https://github.com/celatzur/3D-scanner/blob/master/images/3DScanner_v05.jpg" width="312" height="251" />
 
+<img src="https://github.com/celatzur/3D-scanner/blob/master/images/Screenshot_colmap_02.png" width="426" height="166" />
+
 Components:
 
 - Arduino Nano
