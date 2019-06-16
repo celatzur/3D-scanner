@@ -1,5 +1,5 @@
 # 3D-scanner
-Turntable for a 3D scanner controlled with arduino, which also shoots, via bluettoth, a phone camera to reconstruct the object with photogrametry.
+Turntable for a 3D scanner controlled with Arduino, which also shoots, via Bluetooth, a phone camera to reconstruct the object with photogrametry.
  
 <p align="center">
  
